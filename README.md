@@ -21,6 +21,7 @@ Bu depo, farklı mühendislik disiplinlerinde kullanılan temel yazılımlar, ma
     - [Endüstri Mühendisliği](#4-endüstri-mühendisliği)
     - [Kalite Yönetimi ve Gıda Güvenliği](#5-kalite-yönetimi-ve-gıda-güvenliği)
     - [Çevre ve Sürdürülebilirlik](#6-çevre-ve-sürdürülebilirlik)
+    - [Enerji Sistemleri Mühendisliği](#7-enerji-sistemleri-mühendisliği)
 5. [Proje Klasör Yapısı](#-proje-klasör-yapısı)
 6. [Kurulum ve Çalıştırma](#-kurulum-ve-çalıştırma)
 7. [Katkıda Bulunma (Contributing)](#-katkıda-bulunma)
@@ -53,6 +54,7 @@ Bu komut size aşağıdaki gibi interaktif bir konsol arayüzü sunacaktır:
 4. Endüstri Mühendisliği (Yalın & Altı Sigma)
 5. Kalite Standartları ve Güvenlik (ISO & HACCP)
 6. Çevre ve Sürdürülebilirlik
+7. Enerji Sistemleri Mühendisliği (Güneş & Rüzgar)
 0. Çıkış
 ==================================================
 ```
@@ -122,6 +124,13 @@ Aşağıdaki tablolarda, görsel envanterimizde yer alan tüm dil, program ve ul
 | **ISO 14001** | Ay So On Dört Bin Bir | Çevre yönetim sistemi standardı. | Kuruluşların çevresel etkilerini (atık yönetimi, karbon ayak izi, enerji tüketimi) sistematik bir yaklaşımla kontrol etmesini, azaltmasını ve yasal çevre mevzuatlarına uymasını sağlayan standarttır. |
 | **ÇED** | Çevresel Etki Değerlendirmesi | Projelerin çevreye etkisini analiz eden rapor sürecidir. | Fabrika, baraj, otoyol gibi yatırımların inşaat ve işletme aşamalarında çevreye vereceği zararlı etkilerin analiz edildiği, bu etkileri önlemek adına gerekli önlemlerin belirlendiği resmi yasal izin ve raporlama süreci. |
 
+### ⚡ Enerji Sistemleri
+
+| Metot / Araç | Okunuşu | Görseldeki Tanımı | Detaylı İnceleme ve Mühendislikteki Rolü |
+| :--- | :--- | :--- | :--- |
+| **PV** | Pi Vi | Güneş enerjisini elektriğe çeviren sistemler (Photovoltaic). | Yarı iletken malzemeler (genellikle silikon) kullanarak güneş ışınımını doğrudan doğru akım (DC) elektriğe dönüştüren hücrelerin oluşturduğu panel sistemleri. |
+| **Betz Limiti** | Betz Limiti | Bir rüzgar türbininin alabileceği maksimum teorik verim. | Akışkanlar mekaniğine göre hiçbir rüzgar türbininin kinetik enerjinin %59.3'ünden fazlasını yakalayamayacağını ispatlayan fiziksel sınırdır. |
+
 ---
 
 
@@ -184,6 +193,13 @@ Aşağıdaki tablolarda, görsel envanterimizde yer alan tüm dil, program ve ul
 *   **Kılavuzlar:** ISO 14001, ESG gereksinimleri ve sera gazı protokolü.
 *   *Dizin:* [environment/](file:///g:/Diğer bilgisayarlar/Dizüstü Bilgisayarım/github repolarım/engineering-tools/environment/)
 
+### 7. Enerji Sistemleri Mühendisliği
+
+> 💬 *"I'd put my money on the sun and solar energy. What a source of power!"* — Thomas Edison
+
+*   **Güneş ve Rüzgar Enerjisi Güç Hesaplayıcı:** Fotovoltaik güneş panelleri için anlık güç üretimini ve rüzgar türbinleri için rüzgar hızı, kanat çapı ve Betz limiti gibi faktörlerle elde edilebilecek mekanik gücü hesaplayan yenilenebilir enerji modülü.
+*   *Dizin:* [energy-engineering/](file:///g:/Diğer bilgisayarlar/Dizüstü Bilgisayarım/github repolarım/engineering-tools/energy-engineering/)
+
 ---
 
 ## 📂 Proje Klasör Yapısı
@@ -215,6 +231,9 @@ engineering-tools/
 │
 ├── environment/
 │   └── sustainability-reports/     # Karbon Ayak İzi Hesaplayıcı ve ESG kılavuzu
+│
+├── energy-engineering/
+│   └── renewables/                 # Güneş Paneli ve Rüzgar Türbini Güç Hesaplayıcı
 │
 └── README.md                       # Genel tanıtım ve kullanım kılavuzu
 ```
@@ -261,6 +280,7 @@ Geliştirmeye ve yeni mühendislik araçları eklemeye her zaman açığız! Kat
 *   **Theodore von Kármán (Tasarım/Mekanik):** *"Bilim insanları olanı inceler, mühendisler ise daha önce hiç var olmamışı yaratır."* Bu söz, mühendisliğin özünde yatan yaratıcılık, tasarım ve sentez kabiliyetini tanımlar.
 *   **W. Edwards Deming (Kalite/Veri):** *"Veri olmadan sadece fikri olan başka bir insansınız."* Deming'in bu yaklaşımı, Altı Sigma ve istatistiksel kalite kontrolünün temelini oluşturur. Kararların hissiyatla değil, veri analiziyle alınması gerektiğini savunur.
 *   **Philip Crosby (Üretim):** *"İşi ilk seferinde doğru yapın."* Crosby'nin "Sıfır Hata" (Zero Defects) yaklaşımı, sonradan düzeltme maliyetinin, hatayı ilk başta önleme maliyetinden kat kat yüksek olduğunu vurgular.
+*   **Thomas Edison (Enerji):** *"Paramı güneşe ve güneş enerjisine yatırırdım. Ne büyük bir güç kaynağı!"* sözü, fosil yakıtların tükenmezliğine bel bağlamadan, yenilenebilir kaynakların asıl potansiyelini öngören tarihi bir vizyondur.
 
 ### 📖 Resmi Standartlar ve Akademik Referanslar
 
