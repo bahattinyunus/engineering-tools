@@ -69,3 +69,14 @@ volumes:
 | **Nesne Depolama** | S3 | Blob Storage | Büyük CAD montaj dosyalarının ve 3D modellerin saklanması |
 | **IoT Veri Akışı** | IoT Core | IoT Hub | Fabrikadaki PLC'lerden gelen anlık sensör verilerinin toplanması |
 | **Veritabanı** | RDS | Azure SQL | Kalite standartları ve üretim geçmişi verilerinin saklanması |
+
+---
+
+## 🚀 Bulut TCO & Kapasite Hesaplayıcı
+
+Bulut mimarisinin vCPU, RAM, depolama ve bant genişliği gereksinimlerine göre On-Demand ve 1-3 Yıllık Rezervasyon (Savings Plan) maliyet projeksiyonlarını ve veri merkezi karbon ayak izini hesaplamak için:
+
+```bash
+python software/cloud/cloud_cost_calculator.py
+```
+

@@ -119,6 +119,33 @@ def quadratic_regression(x, y):
         "denklem": f"y = {a:.4f}x^2 + {b:.4f}x + {c:.4f}"
     }
 
+def celsius_to_fahrenheit(c):
+    return c * 1.8 + 32.0
+
+def fahrenheit_to_celsius(f):
+    return (f - 32.0) / 1.8
+
+def bar_to_psi(bar):
+    return bar * 14.503773773
+
+def psi_to_bar(psi):
+    return psi / 14.503773773
+
+def bar_to_pascal(bar):
+    return bar * 100000.0
+
+def mm_to_inch(mm):
+    return mm / 25.4
+
+def inch_to_mm(inch):
+    return inch * 25.4
+
+def mps_to_kmh(mps):
+    return mps * 3.6
+
+def kmh_to_mps(kmh):
+    return kmh / 3.6
+
 def unit_converter():
     while True:
         print("\n--- Birim Dönüştürücü ---")
@@ -131,19 +158,19 @@ def unit_converter():
         
         if secim == '1':
             val = float(input("Değeri girin: "))
-            print(f"{val} °C = {val * 1.8 + 32:.2f} °F")
-            print(f"{val} °F = {(val - 32) / 1.8:.2f} °C")
+            print(f"{val} °C = {celsius_to_fahrenheit(val):.2f} °F")
+            print(f"{val} °F = {fahrenheit_to_celsius(val):.2f} °C")
         elif secim == '2':
             val = float(input("Değeri girin: "))
-            print(f"{val} Bar = {val * 14.5038:.2f} PSI = {val * 100000:.2f} Pa")
-            print(f"{val} PSI = {val / 14.5038:.4f} Bar = {val * 6894.76:.2f} Pa")
+            print(f"{val} Bar = {bar_to_psi(val):.2f} PSI = {bar_to_pascal(val):.2f} Pa")
+            print(f"{val} PSI = {psi_to_bar(val):.4f} Bar = {psi_to_bar(val) * 100000:.2f} Pa")
         elif secim == '3':
             val = float(input("Değeri girin: "))
-            print(f"{val} inç = {val * 25.4:.2f} mm")
-            print(f"{val} mm = {val / 25.4:.4f} inç")
+            print(f"{val} inç = {inch_to_mm(val):.2f} mm")
+            print(f"{val} mm = {mm_to_inch(val):.4f} inç")
         elif secim == '4':
             val = float(input("Değeri girin (m/s): "))
-            print(f"{val} m/s = {val * 3.6:.2f} km/h = {val * 2.23694:.2f} mph")
+            print(f"{val} m/s = {mps_to_kmh(val):.2f} km/h = {val * 2.23694:.2f} mph")
         elif secim == '0':
             break
         else:
