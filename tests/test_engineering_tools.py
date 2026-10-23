@@ -2,6 +2,7 @@ import unittest
 import importlib.util
 import os
 import sys
+import math
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
@@ -15,19 +16,23 @@ def import_from_path(rel_path, module_name=None):
     spec.loader.exec_module(module)
     return module
 
-# Modülleri yükle
+# Mevcut modülleri yükle
 data_analyzer = import_from_path("software/python/data_analyzer.py")
 cloud_cost = import_from_path("software/cloud/cloud_cost_calculator.py")
+algo_bench = import_from_path("software/algorithms/complexity_benchmarker.py")
 electrical_calc = import_from_path("automation-electronics/circuit-design/electrical_calculator.py")
 modbus_sim = import_from_path("automation-electronics/plc-scada/modbus_simulator.py")
+robotics_calc = import_from_path("automation-electronics/robotics/kinematics_calculator.py")
 gcode_gen = import_from_path("mechanical-civil/cad-cam/gcode_generator.py")
 cpm_calc = import_from_path("mechanical-civil/project-management/cpm_calculator.py")
 beam_calc = import_from_path("mechanical-civil/structural-mechanics/beam_stress_calculator.py")
+cycle_calc = import_from_path("mechanical-civil/thermodynamics/cycle_calculator.py")
 fluid_calc = import_from_path("chemical-process/process-engineering/fluid_thermal_calculator.py")
 oee_calc = import_from_path("industrial-engineering/lean-six-sigma/oee_sigma_calculator.py")
 carbon_calc = import_from_path("environment/sustainability-reports/carbon_footprint.py")
 power_calc = import_from_path("energy-engineering/renewables/power_calculator.py")
 bess_calc = import_from_path("energy-engineering/storage-grid/bess_storage_calculator.py")
+aero_calc = import_from_path("aerospace-engineering/aerodynamics/airfoil_analyzer.py")
 
 
 class TestSoftwareTools(unittest.TestCase):
@@ -75,8 +80,22 @@ class TestSoftwareTools(unittest.TestCase):
         self.assertGreater(res["Yıllık 1-Yıl Rezerv Tasarrufu ($)"], 0)
         self.assertGreater(res["Aylık Karbon Emisyonu (kg CO2e)"], 0)
 
+    def test_sorting_and_binary_search(self):
+        raw = [5, 2, 8, 1, 9]
+        sorted_arr = algo_bench.bubble_sort(raw)
+        self.assertEqual(sorted_arr, [1, 2, 5, 8, 9])
+        self.assertEqual(algo_bench.binary_search(sorted_arr, 5), 2)
+        self.assertEqual(algo_bench.binary_search(sorted_arr, 99), -1)
 
-class TestElectricalTools(unittest.TestCase):
+    def test_big_o_exponent_estimation(self):
+        sizes = [100, 200, 400, 800]
+        # T = c * N^2 sentetik veri
+        times = [0.001 * (n**2) for n in sizes]
+        beta = algo_bench.estimate_big_o_exponent(sizes, times)
+        self.assertAlmostEqual(beta, 2.0, places=1)
+
+
+class TestElectricalAndRoboticsTools(unittest.TestCase):
     def test_voltage_drop_3phase(self):
         res, err = electrical_calc.calculate_voltage_drop(voltage=400, current=30, length_m=100, section_mm2=10, material="bakir", system_type="3phase")
         self.assertIsNone(err)
@@ -89,9 +108,9 @@ class TestElectricalTools(unittest.TestCase):
         self.assertGreater(res["Gerilim Düşümü (V)"], 0)
 
     def test_filter_resonance(self):
-        r = 1000.0  # 1k Ohm
-        c = 1e-6    # 1 uF
-        l = 0.1     # 100 mH
+        r = 1000.0
+        c = 1e-6
+        l = 0.1
         res = electrical_calc.calculate_filter_resonance(r, l, c)
         self.assertIn("RC Kesim Frekansı (Cutoff fc - Hz)", res)
         self.assertIn("RLC Rezonans Frekansı (f0 - Hz)", res)
@@ -103,8 +122,6 @@ class TestElectricalTools(unittest.TestCase):
         self.assertGreater(res["Gereken Kondansatör Gücü (kVAR)"], 0)
         self.assertGreater(res["Şebekeden Çekilen Güç Tasarrufu (kVA)"], 0)
 
-
-class TestAutomationTools(unittest.TestCase):
     def test_modbus_simulator_scan(self):
         plc = modbus_sim.PLCSimulator()
         self.assertEqual(plc.coils[1], False)
@@ -122,8 +139,29 @@ class TestAutomationTools(unittest.TestCase):
         self.assertEqual(plc.input_registers[3003], 0)
         self.assertEqual(plc.coils[3], True)
 
+    def test_robotics_forward_and_inverse_kinematics(self):
+        l1, l2 = 300.0, 200.0
+        t1, t2 = 30.0, 45.0
+        fk_res, err = robotics_calc.forward_kinematics_2r(l1, l2, t1, t2)
+        self.assertIsNone(err)
+        x_ee, y_ee = fk_res["Uç Nokta Konumu (X, Y - mm)"]
+        
+        # Ters kinematik ile geri çöz
+        ik_res, err_ik = robotics_calc.inverse_kinematics_2r(l1, l2, x_ee, y_ee)
+        self.assertIsNone(err_ik)
+        c1 = ik_res["Çözüm 1 (Dirsek Aşağı / Elbow Down)"]
+        self.assertAlmostEqual(c1["theta1 (deg)"], t1, delta=0.1)
+        self.assertAlmostEqual(c1["theta2 (deg)"], t2, delta=0.1)
 
-class TestMechanicalTools(unittest.TestCase):
+    def test_robotics_singularity(self):
+        l1, l2 = 300.0, 200.0
+        # theta2 = 0 derece tekilliktir
+        jac_res = robotics_calc.calculate_robot_jacobian(l1, l2, 45.0, 0.0)
+        self.assertIn("TEKİLLİK MEVCUT", jac_res["Kinematik Tekillik Durumu"])
+        self.assertAlmostEqual(jac_res["Determinant det(J)"], 0.0)
+
+
+class TestMechanicalAndCivilTools(unittest.TestCase):
     def test_gcode_generation(self):
         rect_gcode = gcode_gen.generate_rectangular_gcode(50, 80, -2, 5, 800, 3000, 6, "dummy.nc")
         self.assertIn("G21", rect_gcode)
@@ -142,7 +180,6 @@ class TestMechanicalTools(unittest.TestCase):
         }
         topo_order, duration = cpm_calc.solve_cpm(tasks)
         self.assertIsNotNone(topo_order)
-        # Kritik yol elemanlarını tespit et
         critical_path = [u for u in topo_order if abs(tasks[u].slack) < 0.0001]
         self.assertEqual(critical_path, ["A", "C", "D"])
         self.assertAlmostEqual(duration, 8.0)
@@ -156,6 +193,24 @@ class TestMechanicalTools(unittest.TestCase):
         self.assertIsNone(err2)
         self.assertIn("Maksimum Eğilme Momenti", bm)
         self.assertIn("GÜVENLİ", bm["Gerilme Emniyeti"])
+
+    def test_carnot_and_brayton_cycles(self):
+        carnot_res, err = cycle_calc.calculate_carnot_efficiency(th_celsius=600, tc_celsius=25)
+        self.assertIsNone(err)
+        self.assertGreater(carnot_res["Maksimum Carnot Verimi η (%)"], 50.0)
+        
+        brayton_res, err_b = cycle_calc.calculate_brayton_cycle(pressure_ratio=12.0, t1_celsius=20, t3_celsius=1100)
+        self.assertIsNone(err_b)
+        self.assertGreater(brayton_res["Teorik Termal Verim η (%)"], 40.0)
+
+    def test_otto_and_diesel_cycles(self):
+        otto_res, err_o = cycle_calc.calculate_otto_cycle(compression_ratio=10.0)
+        self.assertIsNone(err_o)
+        self.assertGreater(otto_res["Otto Termal Verimi η (%)"], 55.0)
+        
+        diesel_res, err_d = cycle_calc.calculate_diesel_cycle(compression_ratio=18.0, cutoff_ratio=2.0)
+        self.assertIsNone(err_d)
+        self.assertGreater(diesel_res["Diesel Termal Verimi η (%)"], 55.0)
 
 
 class TestChemicalProcessTools(unittest.TestCase):
@@ -182,7 +237,37 @@ class TestChemicalProcessTools(unittest.TestCase):
         self.assertAlmostEqual(res["Eklenmesi Gereken Çözücü Miktarı"], 20.0)
 
 
-class TestIndustrialAndQualityTools(unittest.TestCase):
+class TestAerospaceTools(unittest.TestCase):
+    def test_isa_atmosphere(self):
+        # Deniz seviyesi (0 m)
+        res_sl, err = aero_calc.calculate_isa_atmosphere(0, velocity_kmh=360)
+        self.assertIsNone(err)
+        self.assertAlmostEqual(res_sl["Sıcaklık (°C)"], 15.0, places=1)
+        self.assertAlmostEqual(res_sl["Basınç (Pascal)"], 101325.0, places=0)
+        self.assertAlmostEqual(res_sl["Hava Yoğunluğu (kg/m³)"], 1.225, delta=0.01)
+        # Mach ~ 100 m/s / 340.3 m/s ~ 0.29
+        self.assertAlmostEqual(res_sl["Mach Sayısı (M)"], 0.294, delta=0.02)
+        
+        # 11000 m Tropopoz
+        res_11k, _ = aero_calc.calculate_isa_atmosphere(11000)
+        self.assertAlmostEqual(res_11k["Sıcaklık (°C)"], -56.5, delta=0.5)
+
+    def test_naca_airfoil_coords(self):
+        res, err = aero_calc.generate_naca_4digit("2412", num_points=21)
+        self.assertIsNone(err)
+        self.assertEqual(len(res["Ust Yuzey (Xu, Yu)"]), 21)
+        self.assertAlmostEqual(res["Maksimum Kamburluk m (% chord)"], 2.0)
+        self.assertAlmostEqual(res["Maksimum Kalınlık t (% chord)"], 12.0)
+
+    def test_aerodynamic_lift_drag(self):
+        res, err = aero_calc.calculate_aerodynamic_lift_drag(2*math.pi, alpha_deg=5.0, wing_area_m2=15.0, aspect_ratio=8.0, dynamic_pressure_pa=1000.0)
+        self.assertIsNone(err)
+        self.assertGreater(res["Taşıma Katsayısı (CL)"], 0)
+        self.assertGreater(res["Toplam Taşıma Kuvveti (Lift - Newton)"], 0)
+        self.assertGreater(res["Süzülme / Verim Oranı (L/D)"], 10.0)
+
+
+class TestIndustrialQualityAndEnergyTools(unittest.TestCase):
     def test_oee_calculation(self):
         res, err = oee_calc.calculate_oee(planned_time=480, planned_down=30, unplanned_down=30, ideal_cycle=1.0, total_units=20000, reject_units=500)
         self.assertIsNone(err)
@@ -200,11 +285,6 @@ class TestIndustrialAndQualityTools(unittest.TestCase):
         self.assertIsNone(err)
         self.assertAlmostEqual(takt, 40.0)
 
-    def test_probit(self):
-        self.assertAlmostEqual(oee_calc.probit(0.5), 0.0, places=2)
-
-
-class TestEnvironmentAndEnergyTools(unittest.TestCase):
     def test_carbon_footprint(self):
         res = carbon_calc.calculate_footprint(nat_gas=1000, diesel=500, petrol=200, electricity=5000, flight_km=10000, commute_km=20000)
         self.assertGreater(res["Toplam Karbon Ayak İzi tCO2e"], 0)

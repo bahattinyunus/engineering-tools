@@ -69,12 +69,16 @@ def list_all_tools():
         ("Yazılım & Veri Analizi", "Veri Analizi & Birim Dönüştürücü", "software/python/data_analyzer.py"),
         ("Yazılım & Veritabanı", "Mühendislik Malzeme Veritabanı (SQL)", "software/databases/db_manager.py"),
         ("Bulut & DevOps", "Bulut TCO & Altyapı Maliyet Hesaplayıcı", "software/cloud/cloud_cost_calculator.py"),
+        ("Algoritmalar & Analiz", "Big-O Karmaşıklık & Sıralama Benchmark", "software/algorithms/complexity_benchmarker.py"),
         ("Otomasyon & Mekatronik", "PLC Modbus & PID Simülatörü", "automation-electronics/plc-scada/modbus_simulator.py"),
         ("Elektrik & Devre", "Kablo Kesiti & Filtre Rezonans Analizi", "automation-electronics/circuit-design/electrical_calculator.py"),
+        ("Robotik & Mekatronik", "2R Robot Kolu İleri/Ters Kinematik & Jakobiyen", "automation-electronics/robotics/kinematics_calculator.py"),
         ("CAD / CAM", "CNC G-Kodu Jeneratörü (Profil Frezeleme)", "mechanical-civil/cad-cam/gcode_generator.py"),
         ("Proje Yönetimi", "Kritik Yol Metodu (CPM & PERT)", "mechanical-civil/project-management/cpm_calculator.py"),
         ("Yapı Statiği & Mukavemet", "Kiriş Eğilme Momenti & Sehim Analizi", "mechanical-civil/structural-mechanics/beam_stress_calculator.py"),
+        ("Termodinamik & Döngüler", "Carnot, Brayton, Otto & Diesel Çevrimleri", "mechanical-civil/thermodynamics/cycle_calculator.py"),
         ("Kimya & Süreç", "Boru Basınç Kaybı & Reynolds (Darcy)", "chemical-process/process-engineering/fluid_thermal_calculator.py"),
+        ("Havacılık & Uzay", "Standart Atmosfer (ISA), NACA Kanat & Aerodinamik", "aerospace-engineering/aerodynamics/airfoil_analyzer.py"),
         ("Endüstri & Yalın Üretim", "OEE & Altı Sigma (DPMO) Hesaplayıcı", "industrial-engineering/lean-six-sigma/oee_sigma_calculator.py"),
         ("Kalite & Standartlar", "ISO 9001 / 22000 / 14001 Denetim Asistanı", "quality-standards/iso-standards/audit_checklist.py"),
         ("Çevre & Sürdürülebilirlik", "Kapsam 1-2-3 Sera Gazı (GHG) Ayak İzi", "environment/sustainability-reports/carbon_footprint.py"),
@@ -82,10 +86,10 @@ def list_all_tools():
         ("Enerji Depolama", "BESS Batarya Boyutlandırma & LCOS Analizi", "energy-engineering/storage-grid/bess_storage_calculator.py")
     ]
     print(f"{'Kategori':<25} | {'Araç Adı':<42} | {'Yol'}")
-    print("-" * 110)
+    print("-" * 115)
     for cat, name, path in tools:
         print(f"{cat:<25} | {name:<42} | {path}")
-    print("=" * 110)
+    print("=" * 115)
 
 def menu_software():
     while True:
@@ -96,6 +100,7 @@ def menu_software():
         print(f"{Colors.OKGREEN}1.{Colors.ENDC} Veri Analizi ve Birim Dönüştürücü (Python)")
         print(f"{Colors.OKGREEN}2.{Colors.ENDC} Mühendislik Malzeme Veritabanı Yöneticisi (SQL)")
         print(f"{Colors.OKGREEN}3.{Colors.ENDC} Bulut TCO & Altyapı Maliyet Hesaplayıcı (DevOps)")
+        print(f"{Colors.OKGREEN}4.{Colors.ENDC} Big-O Algoritmik Karmaşıklık & Benchmark Analizi")
         print(f"{Colors.WARNING}0.{Colors.ENDC} Ana Menüye Dön")
         print(f"{Colors.OKCYAN}=================================================={Colors.ENDC}")
         secim = input("Seçiminiz: ").strip()
@@ -105,6 +110,8 @@ def menu_software():
             run_script("software/databases/db_manager.py")
         elif secim == '3':
             run_script("software/cloud/cloud_cost_calculator.py")
+        elif secim == '4':
+            run_script("software/algorithms/complexity_benchmarker.py")
         elif secim == '0':
             break
         else:
@@ -119,6 +126,7 @@ def menu_automation():
         print(f"{Colors.OKCYAN}=================================================={Colors.ENDC}")
         print(f"{Colors.OKGREEN}1.{Colors.ENDC} PLC Modbus Kaydedici ve PID Simülatörü")
         print(f"{Colors.OKGREEN}2.{Colors.ENDC} Kablo Kesiti, Gerilim Düşümü ve Filtre Analizi (IEC)")
+        print(f"{Colors.OKGREEN}3.{Colors.ENDC} Robotik Kol İleri/Ters Kinematik & Jakobiyen Analizi")
         print(f"{Colors.WARNING}0.{Colors.ENDC} Ana Menüye Dön")
         print(f"{Colors.OKCYAN}=================================================={Colors.ENDC}")
         secim = input("Seçiminiz: ").strip()
@@ -126,6 +134,8 @@ def menu_automation():
             run_script("automation-electronics/plc-scada/modbus_simulator.py")
         elif secim == '2':
             run_script("automation-electronics/circuit-design/electrical_calculator.py")
+        elif secim == '3':
+            run_script("automation-electronics/robotics/kinematics_calculator.py")
         elif secim == '0':
             break
         else:
@@ -141,6 +151,7 @@ def menu_mechanical_civil():
         print(f"{Colors.OKGREEN}1.{Colors.ENDC} CNC G-Kodu Jeneratörü (CAD/CAM)")
         print(f"{Colors.OKGREEN}2.{Colors.ENDC} Kritik Yol Metodu (CPM) ve PERT Proje Planlayıcı")
         print(f"{Colors.OKGREEN}3.{Colors.ENDC} Kiriş Eğilme Gerilmesi ve Sehim Analizi (Statik)")
+        print(f"{Colors.OKGREEN}4.{Colors.ENDC} Termodinamik Güç Döngüleri (Brayton, Carnot, Otto, Diesel)")
         print(f"{Colors.WARNING}0.{Colors.ENDC} Ana Menüye Dön")
         print(f"{Colors.OKCYAN}=================================================={Colors.ENDC}")
         secim = input("Seçiminiz: ").strip()
@@ -150,6 +161,8 @@ def menu_mechanical_civil():
             run_script("mechanical-civil/project-management/cpm_calculator.py")
         elif secim == '3':
             run_script("mechanical-civil/structural-mechanics/beam_stress_calculator.py")
+        elif secim == '4':
+            run_script("mechanical-civil/thermodynamics/cycle_calculator.py")
         elif secim == '0':
             break
         else:
@@ -170,6 +183,26 @@ def menu_chemical():
         secim = input("Seçiminiz: ").strip()
         if secim in ['1', '2', '3']:
             run_script("chemical-process/process-engineering/fluid_thermal_calculator.py")
+        elif secim == '0':
+            break
+        else:
+            print(f"\n{Colors.FAIL}Geçersiz seçim!{Colors.ENDC}")
+            input("Devam etmek için Enter'a basın...")
+
+def menu_aerospace():
+    while True:
+        clear_screen()
+        print(f"{Colors.OKCYAN}=================================================={Colors.ENDC}")
+        print(f"{Colors.BOLD}       HAVACILIK VE AERODİNAMİK MÜHENDİSLİĞİ      {Colors.ENDC}")
+        print(f"{Colors.OKCYAN}=================================================={Colors.ENDC}")
+        print(f"{Colors.OKGREEN}1.{Colors.ENDC} Uluslararası Standart Atmosfer (ISA) ve Mach Sayısı")
+        print(f"{Colors.OKGREEN}2.{Colors.ENDC} NACA 4-Basamaklı Kanat Profili Geometrisi")
+        print(f"{Colors.OKGREEN}3.{Colors.ENDC} Kanat Taşıma (Lift), Sürükleme (Drag) ve L/D Analizi")
+        print(f"{Colors.WARNING}0.{Colors.ENDC} Ana Menüye Dön")
+        print(f"{Colors.OKCYAN}=================================================={Colors.ENDC}")
+        secim = input("Seçiminiz: ").strip()
+        if secim in ['1', '2', '3']:
+            run_script("aerospace-engineering/aerodynamics/airfoil_analyzer.py")
         elif secim == '0':
             break
         else:
@@ -277,17 +310,18 @@ def main():
         print(f"{Colors.BOLD}     [TOOLS] MUHENDISLIK ARACLARI KONSOL ARAYUZU   {Colors.ENDC}")
         print(f"{Colors.HEADER}=================================================={Colors.ENDC}")
         print(f"{Colors.OKBLUE}1.{Colors.ENDC} Yazılım ve Bilgisayar Mühendisliği")
-        print(f"{Colors.OKBLUE}2.{Colors.ENDC} Elektrik-Elektronik ve Otomasyon Mühendisliği")
-        print(f"{Colors.OKBLUE}3.{Colors.ENDC} Makine ve İnşaat Mühendisliği")
+        print(f"{Colors.OKBLUE}2.{Colors.ENDC} Elektrik-Elektronik, Otomasyon & Robotik")
+        print(f"{Colors.OKBLUE}3.{Colors.ENDC} Makine ve İnşaat Mühendisliği (Statik & Termo)")
         print(f"{Colors.OKBLUE}4.{Colors.ENDC} Kimya ve Süreç Mühendisliği (Proses & Hidrolik)")
-        print(f"{Colors.OKBLUE}5.{Colors.ENDC} Endüstri Mühendisliği (Yalın & Altı Sigma)")
-        print(f"{Colors.OKBLUE}6.{Colors.ENDC} Kalite Standartları ve Güvenlik (ISO & HACCP)")
-        print(f"{Colors.OKBLUE}7.{Colors.ENDC} Çevre ve Sürdürülebilirlik (ESG)")
-        print(f"{Colors.OKBLUE}8.{Colors.ENDC} Enerji Sistemleri Mühendisliği (Güneş, Rüzgar, BESS)")
-        print(f"{Colors.OKGREEN}9.{Colors.ENDC} [TEST] Otomatik Mühendislik Testlerini Çalıştır (Unit Tests)")
+        print(f"{Colors.OKBLUE}5.{Colors.ENDC} Havacılık ve Uzay Mühendisliği (Aerodinamik & ISA)")
+        print(f"{Colors.OKBLUE}6.{Colors.ENDC} Endüstri Mühendisliği (Yalın & Altı Sigma)")
+        print(f"{Colors.OKBLUE}7.{Colors.ENDC} Kalite Standartları ve Güvenlik (ISO & HACCP)")
+        print(f"{Colors.OKBLUE}8.{Colors.ENDC} Çevre ve Sürdürülebilirlik (ESG)")
+        print(f"{Colors.OKBLUE}9.{Colors.ENDC} Enerji Sistemleri Mühendisliği (Güneş, Rüzgar, BESS)")
+        print(f"{Colors.OKGREEN}T.{Colors.ENDC} [TEST] Otomatik Mühendislik Testlerini Çalıştır (Unit Tests)")
         print(f"{Colors.WARNING}0.{Colors.ENDC} Çıkış")
         print(f"{Colors.HEADER}=================================================={Colors.ENDC}")
-        secim = input("Seçiminiz: ").strip()
+        secim = input("Seçiminiz: ").strip().upper()
 
         if secim == '1':
             menu_software()
@@ -298,14 +332,16 @@ def main():
         elif secim == '4':
             menu_chemical()
         elif secim == '5':
-            menu_industrial()
+            menu_aerospace()
         elif secim == '6':
-            menu_quality()
+            menu_industrial()
         elif secim == '7':
-            menu_environment()
+            menu_quality()
         elif secim == '8':
-            menu_energy()
+            menu_environment()
         elif secim == '9':
+            menu_energy()
+        elif secim == 'T':
             run_tests()
         elif secim == '0':
             print(f"\n{Colors.OKGREEN}Programdan çıkılıyor. İyi çalışmalar!{Colors.ENDC}")
