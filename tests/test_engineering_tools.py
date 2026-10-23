@@ -33,6 +33,8 @@ carbon_calc = import_from_path("environment/sustainability-reports/carbon_footpr
 power_calc = import_from_path("energy-engineering/renewables/power_calculator.py")
 bess_calc = import_from_path("energy-engineering/storage-grid/bess_storage_calculator.py")
 aero_calc = import_from_path("aerospace-engineering/aerodynamics/airfoil_analyzer.py")
+vib_calc = import_from_path("mechanical-civil/acoustics-vibration/vibration_analyzer.py")
+econ_calc = import_from_path("industrial-engineering/engineering-economics/capital_budgeting.py")
 
 
 class TestSoftwareTools(unittest.TestCase):
@@ -302,6 +304,79 @@ class TestIndustrialQualityAndEnergyTools(unittest.TestCase):
         res, err = bess_calc.calculate_lcos(capex_usd=10000, opex_annual_usd=150, nominal_kwh=25.0, chemistry="lifepo4")
         self.assertIsNone(err)
         self.assertGreater(res["Düzleştirilmiş Depolama Maliyeti (LCOS $/kWh)"], 0)
+
+
+class TestAcousticsAndVibration(unittest.TestCase):
+    def test_sdof_undamped(self):
+        res, err = vib_calc.calculate_sdof_vibration(mass_kg=10.0, stiffness_n_m=1000.0, damping_c=0.0)
+        self.assertIsNone(err)
+        self.assertAlmostEqual(res["Doğal Açısal Frekans ωn (rad/s)"], 10.0)
+        self.assertAlmostEqual(res["Doğal Frekans fn (Hz)"], 10.0 / (2.0 * math.pi))
+        self.assertEqual(res["Sönüm Oranı (Zeta ζ)"], 0.0)
+        self.assertIn("Sönümsüz", res["Sönüm Rejimi"])
+
+    def test_sdof_underdamped_and_resonance(self):
+        # m=50 kg, k=20000 N/m -> omega_n = 20 rad/s, fn ~ 3.183 Hz
+        # c_critical = 2 * sqrt(20000 * 50) = 2 * 1000 = 2000 Ns/m
+        # c = 100 -> zeta = 100 / 2000 = 0.05 (underdamped)
+        res, err = vib_calc.calculate_sdof_vibration(mass_kg=50.0, stiffness_n_m=20000.0, damping_c=100.0, excitation_freq_hz=3.183)
+        self.assertIsNone(err)
+        self.assertAlmostEqual(res["Sönüm Oranı (Zeta ζ)"], 0.05, places=3)
+        self.assertIn("Düşük Sönümlü", res["Sönüm Rejimi"])
+        self.assertGreater(res["Dinamik Büyütme Faktörü (DMF / Q)"], 5.0)
+        self.assertIn("TEHLİKELİ REZONANS", res["Rezonans Tehlikesi"])
+
+    def test_acoustics_decibel_sum_and_distance(self):
+        # 80 dB + 80 dB = 83.01 dB
+        res = vib_calc.calculate_acoustics_decibels(sound_levels_db=[80.0, 80.0], r1_m=5.0, r2_m=10.0)
+        self.assertAlmostEqual(res["Bileşke Toplam Gürültü Seviyesi (dB SPL)"], 83.0103, places=2)
+        # Sınır 85 dBA altı
+        self.assertIn("GÜVENLİ", res["İSG Gürültü Maruziyet Değerlendirmesi"])
+        # Mesafe ikiye katlandığında 6 dB düşmeli
+        self.assertIn("Uzaklaşma Sonucu (5.0 m -> 10.0 m)", res)
+
+
+class TestEngineeringEconomics(unittest.TestCase):
+    def test_npv_calculation(self):
+        # Yatırım: 100000, Nakit akışı: [30000, 40000, 50000], %10 iskonto
+        res, err = econ_calc.calculate_npv(100000, [30000, 40000, 50000], 0.10)
+        self.assertIsNone(err)
+        expected_pv = (30000 / 1.1) + (40000 / (1.1**2)) + (50000 / (1.1**3))
+        expected_npv = expected_pv - 100000
+        self.assertAlmostEqual(res["Net Mevcut Değer (NPV)"], expected_npv, places=2)
+
+    def test_irr_calculation(self):
+        # 100k yatırım, yılda 40k x 3 yıl -> IRR ~ 9.7%
+        irr = econ_calc.calculate_irr(100000, [40000, 40000, 40000])
+        self.assertIsNotNone(irr)
+        # IRR ile NPV hesaplandığında sıfıra çok yakın olmalı
+        npv_at_irr, _ = econ_calc.calculate_npv(100000, [40000, 40000, 40000], irr)
+        self.assertAlmostEqual(npv_at_irr["Net Mevcut Değer (NPV)"], 0.0, delta=0.1)
+
+    def test_payback_and_feasibility_analysis(self):
+        c0 = 100000
+        cfs = [30000, 40000, 50000]
+        # Basit payback: 1. yılda 30k, 2. yılda 70k, 3. yılda 30k/50k = 0.6 yıl -> 2.6 yıl
+        pb = econ_calc.calculate_payback_period(c0, cfs)
+        self.assertAlmostEqual(pb, 2.6, places=2)
+        
+        analysis, err = econ_calc.analyze_capital_budgeting(c0, cfs, discount_rate=0.08)
+        self.assertIsNone(err)
+        self.assertGreater(analysis["Net Bugünkü Değer (NPV - $)"], 0)
+        self.assertGreater(analysis["Yatırım Getirisi (ROI %)"], 0)
+        self.assertGreater(analysis["Fayda / Maliyet Oranı (BCR)"], 1.0)
+        self.assertIn("ONAYLANABİLİR", analysis["Nihai Yatırım Tavsiyesi"])
+
+
+class TestWebDashboard(unittest.TestCase):
+    def test_dashboard_components(self):
+        web_mod = import_from_path("web_dashboard.py")
+        self.assertIn("Engineering Tools - Web Dashboard", web_mod.HTML_PAGE)
+        self.assertIn("calcBeam", web_mod.HTML_PAGE)
+        self.assertIn("calcAero", web_mod.HTML_PAGE)
+        self.assertIn("calcEcon", web_mod.HTML_PAGE)
+        self.assertIn("calcVib", web_mod.HTML_PAGE)
+        self.assertIsNotNone(web_mod.EngineeringServerHandler)
 
 
 if __name__ == "__main__":

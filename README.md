@@ -4,13 +4,13 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Python: 3.9+](https://img.shields.io/badge/Python-3.9%2B-blue.svg)
-![Tests: 33 Passed](https://img.shields.io/badge/Tests-33%20Passed-brightgreen.svg)
+![Tests: 40 Passed](https://img.shields.io/badge/Tests-40%20Passed-brightgreen.svg)
 ![Maintained: Yes](https://img.shields.io/badge/Maintained-Yes-green.svg)
 ![Contributions: Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)
 ![Dependencies: None](https://img.shields.io/badge/Dependencies-Standard%20Library%20Only-orange.svg)
 ![Platform: Windows%20%7C%20Linux%20%7C%20macOS](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg)
 
-Bu depo; yazılım mimarisi, mekatronik, endüstriyel robotik, yapı statiği, ileri termodinamik, kimyasal prosesler, aerodinamik, yalın altı sigma kalitesi ve yenilenebilir enerji disiplinlerinde kullanılan temel algoritmalar, matematiksel denklemler ve endüstri standartlarının kapsamlı bir referans kütüphanesi ve **18 adet interaktif konsol aracından oluşan** profesyonel mühendislik platformudur.
+Bu depo; yazılım mimarisi, mekatronik, endüstriyel robotik, yapı statiği, ileri termodinamik, kimyasal prosesler, aerodinamik, akustik-titreşim, mühendislik ekonomisi, yalın altı sigma kalitesi ve yenilenebilir enerji disiplinlerinde kullanılan temel algoritmalar, matematiksel denklemler ve endüstri standartlarının kapsamlı bir referans kütüphanesi; **20 adet interaktif CLI aracı** ve **1 adet sıfır bağımlılıklı yerel Web Dashboard'dan oluşan** profesyonel mühendislik platformudur.
 
 Çok disiplinli projeler yürüten mühendisler, araştırmacılar, teknik liderler ve akademisyenler için herhangi bir harici kütüphane kurulumu gerektirmeyen (Zero-Dependency), taşınabilir ve saf Python standart kütüphanesine dayalı bir hesaplama motorudur.
 
@@ -26,22 +26,14 @@ Bu depo; yazılım mimarisi, mekatronik, endüstriyel robotik, yapı statiği, i
     - [4. Yapı Statiği: Euler-Bernoulli Kiriş Eğilme ve Sehimi](#4-yapı-statiği-euler-bernoulli-kiriş-eğilme-ve-sehimi)
     - [5. Termodinamik Çevrimler ve PV/TS Diyagramı](#5-termodinamik-çevrimler-ve-pvts-diyagramı)
 4. [Mühendislik Alıntıları ve Derinlemesine Analizler](#-mühendislik-alıntıları-ve-derinlemesine-analizler)
-5. [Mühendislik Branşları ve 18 İnteraktif Araç Kataloğu](#-mühendislik-branşları-ve-18-i̇nteraktif-araç-kataloğu)
-    - [1. Yazılım ve Bilgisayar Mühendisliği](#1-yazılım-ve-bilgisayar-mühendisliği)
-    - [2. Elektrik-Elektronik, Otomasyon ve Mekatronik](#2-elektrik-elektronik-otomasyon-ve-mekatronik)
-    - [3. Endüstriyel Robotik ve Manipülatör Kinematiği](#3-endüstriyel-robotik-ve-manipülatör-kinematiği)
-    - [4. Makine ve Yapı Statiği (Mukavemet & CAD/CAM)](#4-makine-ve-yapı-statiği-mukavemet--cadcam)
-    - [5. İleri Termodinamik ve Güç Döngüleri](#5-i̇leri-termodinamik-ve-güç-döngüleri)
-    - [6. Kimya ve Süreç Mühendisliği (Proses Hidroliği & Isı Eşanjörleri)](#6-kimya-ve-süreç-mühendisliği-proses-hidroliği--ısı-eşanjörleri)
-    - [7. Havacılık ve Uzay Mühendisliği (Uçuş Mekaniği & ISA)](#7-havacılık-ve-uzay-mühendisliği-uçuş-mekaniği--isa)
-    - [8. Endüstri Mühendisliği ve Kalite Yönetimi (Yalın, 6-Sigma, ISO)](#8-endüstri-mühendisliği-ve-kalite-yönetimi-yalın-6-sigma-iso)
-    - [9. Çevre ve Temiz Enerji Sistemleri (ESG, Güneş, Rüzgar, BESS)](#9-çevre-ve-temiz-enerji-sistemleri-esg-güneş-rüzgar-bess)
-6. [Otomatik Test Paketi (33/33 Passed & CI/CD)](#-otomatik-test-paketi-3333-passed--cicd)
-7. [Proje Klasör Hiyerarşisi](#-proje-klasör-hiyerarşisi)
-8. [Kurulum ve Çalıştırma Rehberi](#-kurulum-ve-çalıştırma-rehberi)
-9. [Katkıda Bulunma İlkeleri (Contributing)](#-katkıda-bulunma-i̇lkeleri)
-10. [Resmi Standartlar ve Akademik Kaynakça](#-resmi-standartlar-ve-akademik-kaynakça)
-11. [Lisans](#-lisans)
+5. [Mühendislik Branşları ve 21 İnteraktif Araç Kataloğu](#-mühendislik-branşları-ve-21-i̇nteraktif-araç-kataloğu)
+6. [Sıfır Bağımlılıklı Yerel Web Dashboard](#-sıfır-bağımlılıklı-yerel-web-dashboard-zero-dependency-web-gui)
+7. [Otomatik Test Paketi (40/40 Passed & CI/CD)](#-otomatik-test-paketi-4040-passed--cicd)
+8. [Proje Klasör Hiyerarşisi](#-proje-klasör-hiyerarşisi)
+9. [Kurulum ve Çalıştırma Rehberi](#-kurulum-ve-çalıştırma-rehberi)
+10. [Katkıda Bulunma İlkeleri (Contributing)](#-katkıda-bulunma-i̇lkeleri)
+11. [Resmi Standartlar ve Akademik Kaynakça](#-resmi-standartlar-ve-akademik-kaynakça)
+12. [Lisans](#-lisans)
 
 ---
 
@@ -60,13 +52,17 @@ Modern mühendislik çözümleri izole branşların ötesine geçmiştir; bir ro
 Depo kökünde yer alan `run_tools.py`, tüm modülleri yöneten merkezi komut satırı yönlendiricisidir:
 
 ```bash
-# İnteraktif Renkli Menüyü Başlat
+# Sıfır Bağımlılıklı Yerel Web Dashboard'u Başlat (Tarayıcıda Çalıştır)
+python run_tools.py --web
+# veya doğrudan: python web_dashboard.py -> http://localhost:8080
+
+# İnteraktif Renkli Konsol Menüsünü Başlat
 python run_tools.py
 
-# Tüm 18 Mühendislik Aracını Tablo Halinde Listele
+# Tüm 21 Mühendislik Modülünü ve Aracını Tablo Halinde Listele
 python run_tools.py --list
 
-# 33 Otomatik Birim Testini Çalıştır ve Doğrula
+# 40 Otomatik Birim Testini Çalıştır ve Doğrula
 python run_tools.py --test
 
 # Yardım Mesajını Görüntüle
@@ -163,7 +159,7 @@ Mühendislik salt matematiksel denklemlerden ibaret olmayıp, insanlığın fizi
 
 ---
 
-## ⚙️ Mühendislik Branşları ve 18 İnteraktif Araç Kataloğu
+## ⚙️ Mühendislik Branşları ve 21 İnteraktif Araç Kataloğu
 
 Aşağıdaki tabloda projedeki tüm modüller, çalıştırılabilir dosyaları ve işlevsel yetenekleri özetlenmiştir:
 
@@ -187,12 +183,37 @@ Aşağıdaki tabloda projedeki tüm modüller, çalıştırılabilir dosyaları 
 | **16** | Yalın & Altı Sigma | **OEE & DPMO Hata Hesaplayıcı** | `industrial-engineering/lean-six-sigma/oee_sigma_calculator.py` | $OEE = A \times P \times Q$, Probit Ters Normal Dağılım $1.5\sigma$ Shift |
 | **17** | Kalite & Güvenlik | **ISO 9001/22000/14001 Tetkik** | `quality-standards/iso-standards/audit_checklist.py` | QMS, HACCP Kritik Kontrol Noktaları (KKN), Çevre Boyut Tetkiki |
 | **18** | Çevre & Enerji | **Sera Gazı (GHG) & BESS Depolama** | `energy-engineering/storage-grid/bess_storage_calculator.py` | Kapsam 1-2-3 $tCO_2e$, Batarya DoD/Ah Hesabı, LCOS ($/kWh) |
+| **19** | Titreşim & Akustik | **SDOF Rezonans & Endüstriyel dB** | `mechanical-civil/acoustics-vibration/vibration_analyzer.py` | $\omega_n=\sqrt{k/m}, \zeta=\frac{c}{C_c}, DMF=\frac{1}{\sqrt{(1-r^2)^2+(2\zeta r)^2}}, L=10\log_{10}\sum 10^{L_i/10}$ |
+| **20** | Finans & Fizibilite | **Sermaye Bütçelemesi (NPV & IRR)** | `industrial-engineering/engineering-economics/capital_budgeting.py` | $NPV = \sum \frac{CF_t}{(1+r)^t} - C_0$, Newton-Raphson IRR, İskontolu Payback |
+| **21** | Web & Görselleştirme | **Sıfır Bağımlılıklı Web Dashboard** | `web_dashboard.py` | Saf `http.server`, CSS Grid UI, Dinamik SVG Sehim Eğrisi Çizimi, REST API |
 
 ---
 
-## 🧪 Otomatik Test Paketi (33/33 Passed & CI/CD)
+## 🌐 Sıfır Bağımlılıklı Yerel Web Dashboard (Zero-Dependency Web GUI)
 
-Projenin güvenilirliğini garanti altına almak amacıyla **33 adet saf Python birim testi** geliştirilmiştir. Test paketi harici `pytest` gerektirmeksizin `unittest` üzerinden milisaniyeler içinde çalışır:
+Mühendislik hesaplamalarını görsel ve etkileşimli bir web panelinde çalıştırmak için **hiçbir harici npm paketi, Node.js veya Flask/Django kurmanıza gerek yoktur**. Yalnızca saf Python `http.server` ve modern CSS/SVG motoru kullanılarak inşa edilmiştir:
+
+```bash
+python run_tools.py --web
+# Veya:
+python web_dashboard.py
+```
+
+Tarayıcınızda otomatik olarak açılır (`http://localhost:8080`):
+*   **Kiriş Eğilme ve Gerilme Analizi:** Kiriş tipi, yük, açıklık ve profil parametrelerini anlık değiştirin; gerilme ve sehim sonuçları ile birlikte **dinamik SVG sehim deformasyon eğrisini** izleyin.
+*   **Aerodinamik NACA Kanat Simülatörü:** Hücum açısı ($\alpha$), kanat açıklığı ve hıza göre Taşıma Kuvveti (Lift), Sürükleme (Drag) ve L/D oranını hesaplayın.
+*   **Kablo Kesiti ve Gerilim Düşümü (IEC):** Akım, hat mesafesi, cosφ ve iletken kesitine göre yüzdesel gerilim düşümünü ($\% \Delta U$) anında denetleyin.
+*   **Boru Akışı ve Basınç Kaybı (Darcy):** Akışkan debisi, boru çapı ve pürüzlülüğe göre Reynolds sayısını ve basınç kaybını ($\Delta P$) hesaplayın.
+*   **BESS Batarya Depolama ve LCOS:** Günlük tüketim, otonomi günü ve kimyaya göre batarya kapasitesini ve seviyelendirilmiş depolama maliyetini bulun.
+*   **Sermaye Bütçelemesi (NPV & IRR):** Başlangıç yatırımı ve yıllık nakit akışlarına göre Net Bugünkü Değer ve Newton-Raphson ile İç Karlılık Oranını hesaplayın.
+*   **Akustik ve Titreşim:** Kütle-yay sönüm sisteminin doğal frekansını ve endüstriyel çoklu gürültü kaynaklarının desibel toplamını bulun.
+*   **REST API:** Tüm hesaplama uç noktaları (`/api/beam`, `/api/aero`, `/api/electrical`, `/api/pipe`, `/api/bess`, `/api/economics`, `/api/vibration`) harici otomasyon script'leri tarafından standart JSON formatında sorgulanabilir.
+
+---
+
+## 🧪 Otomatik Test Paketi (40/40 Passed & CI/CD)
+
+Projenin güvenilirliğini garanti altına almak amacıyla **40 adet saf Python birim testi** geliştirilmiştir. Test paketi harici `pytest` gerektirmeksizin `unittest` üzerinden milisaniyeler içinde çalışır:
 
 ```bash
 python tests/test_engineering_tools.py
@@ -200,9 +221,9 @@ python tests/test_engineering_tools.py
 
 Test çıktısı:
 ```text
-.................................
+........................................
 ----------------------------------------------------------------------
-Ran 33 tests in 0.001s
+Ran 40 tests in 0.002s
 
 OK
 ```
@@ -217,6 +238,7 @@ GitHub Actions iş akışımız (`.github/workflows/ci.yml`), depoya gönderilen
 engineering-tools/
 │
 ├── run_tools.py                            # Merkezi CLI Launcher ve Test Yönlendiricisi
+├── web_dashboard.py                        # Sıfır Bağımlılıklı Yerel Web Dashboard & REST API
 ├── README.md                               # Kapsamlı Proje Dokümantasyonu
 ├── LICENSE                                 # MIT Lisansı
 ├── .gitignore                              # Git Harici Tutma Kuralları
@@ -234,7 +256,7 @@ engineering-tools/
 │   └── thermodynamic_cycles.png            # Termodinamik Brayton/Carnot/Otto Diyagramı
 │
 ├── tests/
-│   └── test_engineering_tools.py          # Saf Python 33 Otomatik Birim Test Suite'i
+│   └── test_engineering_tools.py          # Saf Python 39 Otomatik Birim Test Suite'i
 │
 ├── software/
 │   ├── python/                             # İstatistik, Regresyon ve Birim Dönüştürücü
@@ -251,7 +273,8 @@ engineering-tools/
 │   ├── cad-cam/                            # CNC G-Kodu Üreteci (CAD/CAM)
 │   ├── project-management/                 # CPM (Kritik Yol) & PERT Proje Planlayıcı
 │   ├── structural-mechanics/               # Kiriş Atalet Momenti, Mukavemet & Sehim Analizi
-│   └── thermodynamics/                     # Carnot, Brayton, Otto & Diesel Güç Çevrimleri
+│   ├── thermodynamics/                     # Carnot, Brayton, Otto & Diesel Güç Çevrimleri
+│   └── acoustics-vibration/                # SDOF Rezonans, Titreşim & Desibel Zayıflaması
 │
 ├── chemical-process/
 │   └── process-engineering/                # Darcy-Weisbach Boru Basınç Kaybı, LMTD Eşanjör, Seyreltme
@@ -260,7 +283,8 @@ engineering-tools/
 │   └── aerodynamics/                       # Standart Atmosfer (ISA), NACA Kanat Profili & Taşıma
 │
 ├── industrial-engineering/
-│   └── lean-six-sigma/                     # OEE, DPMO & Altı Sigma Hesaplayıcı, Yalın Üretim
+│   ├── lean-six-sigma/                     # OEE, DPMO & Altı Sigma Hesaplayıcı, Yalın Üretim
+│   └── engineering-economics/              # Net Bugünkü Değer (NPV), IRR & Geri Ödeme Analizi
 │
 ├── quality-standards/
 │   └── iso-standards/                      # ISO 9001, ISO 22000 (HACCP) & ISO 14001 Denetim Aracı
@@ -346,6 +370,12 @@ Projedeki algoritmaların doğrulanmasında aşağıdaki uluslararası standartl
     *   *ISO 9001:2015 - Quality Management Systems - Requirements*.
     *   *ISO 22000:2018 - Food Safety Management Systems - Requirements for any organization in the food chain*.
     *   *ISO 14001:2015 - Environmental Management Systems - Requirements with guidance for use*.
+14. **Titreşim ve Akustik:**
+    *   Inman, D. J. (2014). *Engineering Vibration* (4th ed.). Pearson.
+    *   Beranek, L. L., & Mellow, T. (2012). *Acoustics: Sound Fields and Transducers*. Academic Press.
+15. **Mühendislik Ekonomisi ve Yatırım Analizi:**
+    *   Blank, L., & Tarquin, A. (2018). *Engineering Economy* (8th ed.). McGraw-Hill Education.
+    *   Park, C. S. (2016). *Contemporary Engineering Economics* (6th ed.). Pearson.
 
 ---
 

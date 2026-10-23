@@ -83,7 +83,10 @@ def list_all_tools():
         ("Kalite & Standartlar", "ISO 9001 / 22000 / 14001 Denetim Asistanı", "quality-standards/iso-standards/audit_checklist.py"),
         ("Çevre & Sürdürülebilirlik", "Kapsam 1-2-3 Sera Gazı (GHG) Ayak İzi", "environment/sustainability-reports/carbon_footprint.py"),
         ("Yenilenebilir Enerji", "Güneş (PV) ve Rüzgar Güç Hesaplayıcı", "energy-engineering/renewables/power_calculator.py"),
-        ("Enerji Depolama", "BESS Batarya Boyutlandırma & LCOS Analizi", "energy-engineering/storage-grid/bess_storage_calculator.py")
+        ("Enerji Depolama", "BESS Batarya Boyutlandırma & LCOS Analizi", "energy-engineering/storage-grid/bess_storage_calculator.py"),
+        ("Titreşim & Akustik", "SDOF Rezonans, DMF & Endüstriyel Desibel", "mechanical-civil/acoustics-vibration/vibration_analyzer.py"),
+        ("Mühendislik Ekonomisi", "NPV, IRR, Geri Ödeme & BCR Analizi", "industrial-engineering/engineering-economics/capital_budgeting.py"),
+        ("Web Arayüzü", "Sıfır Bağımlılıklı Yerel Web Dashboard & API", "web_dashboard.py")
     ]
     print(f"{'Kategori':<25} | {'Araç Adı':<42} | {'Yol'}")
     print("-" * 115)
@@ -152,6 +155,7 @@ def menu_mechanical_civil():
         print(f"{Colors.OKGREEN}2.{Colors.ENDC} Kritik Yol Metodu (CPM) ve PERT Proje Planlayıcı")
         print(f"{Colors.OKGREEN}3.{Colors.ENDC} Kiriş Eğilme Gerilmesi ve Sehim Analizi (Statik)")
         print(f"{Colors.OKGREEN}4.{Colors.ENDC} Termodinamik Güç Döngüleri (Brayton, Carnot, Otto, Diesel)")
+        print(f"{Colors.OKGREEN}5.{Colors.ENDC} Titreşim Analizi (SDOF) ve Endüstriyel Akustik")
         print(f"{Colors.WARNING}0.{Colors.ENDC} Ana Menüye Dön")
         print(f"{Colors.OKCYAN}=================================================={Colors.ENDC}")
         secim = input("Seçiminiz: ").strip()
@@ -163,6 +167,8 @@ def menu_mechanical_civil():
             run_script("mechanical-civil/structural-mechanics/beam_stress_calculator.py")
         elif secim == '4':
             run_script("mechanical-civil/thermodynamics/cycle_calculator.py")
+        elif secim == '5':
+            run_script("mechanical-civil/acoustics-vibration/vibration_analyzer.py")
         elif secim == '0':
             break
         else:
@@ -216,11 +222,14 @@ def menu_industrial():
         print(f"{Colors.BOLD}          ENDÜSTRİ MÜHENDİSLİĞİ ARAÇLARI          {Colors.ENDC}")
         print(f"{Colors.OKCYAN}=================================================={Colors.ENDC}")
         print(f"{Colors.OKGREEN}1.{Colors.ENDC} OEE (Toplam Ekipman Etkinliği) ve Altı Sigma Hesaplayıcı")
+        print(f"{Colors.OKGREEN}2.{Colors.ENDC} Mühendislik Ekonomisi & Fizibilite Analizi (NPV, IRR, Payback)")
         print(f"{Colors.WARNING}0.{Colors.ENDC} Ana Menüye Dön")
         print(f"{Colors.OKCYAN}=================================================={Colors.ENDC}")
         secim = input("Seçiminiz: ").strip()
         if secim == '1':
             run_script("industrial-engineering/lean-six-sigma/oee_sigma_calculator.py")
+        elif secim == '2':
+            run_script("industrial-engineering/engineering-economics/capital_budgeting.py")
         elif secim == '0':
             break
         else:
@@ -294,11 +303,15 @@ def main():
         if arg in ['--test', '-t']:
             code = run_tests(interactive=False)
             sys.exit(code)
+        elif arg in ['--web', '-w']:
+            run_script("web_dashboard.py")
+            sys.exit(0)
         elif arg in ['--list', '-l']:
             list_all_tools()
             sys.exit(0)
         elif arg in ['--help', '-h']:
             print("Kullanım: python run_tools.py [SEÇENEK]")
+            print("  --web, -w  : Sıfır bağımlılıklı yerel Web Dashboard'u başlatır (http://localhost:8080).")
             print("  --test, -t : Tüm otomatik birim testlerini çalıştırır.")
             print("  --list, -l : Mevcut tüm mühendislik araçlarını listeler.")
             print("  --help, -h : Bu yardım mesajını gösterir.")
@@ -309,12 +322,13 @@ def main():
         print(f"{Colors.HEADER}=================================================={Colors.ENDC}")
         print(f"{Colors.BOLD}     [TOOLS] MUHENDISLIK ARACLARI KONSOL ARAYUZU   {Colors.ENDC}")
         print(f"{Colors.HEADER}=================================================={Colors.ENDC}")
+        print(f"{Colors.OKCYAN}W.{Colors.ENDC} [WEB] Sıfır Bağımlılıklı Web Dashboard (Tarayıcıda Çalıştır)")
         print(f"{Colors.OKBLUE}1.{Colors.ENDC} Yazılım ve Bilgisayar Mühendisliği")
         print(f"{Colors.OKBLUE}2.{Colors.ENDC} Elektrik-Elektronik, Otomasyon & Robotik")
-        print(f"{Colors.OKBLUE}3.{Colors.ENDC} Makine ve İnşaat Mühendisliği (Statik & Termo)")
+        print(f"{Colors.OKBLUE}3.{Colors.ENDC} Makine ve İnşaat Mühendisliği (Statik, Termo & Titreşim)")
         print(f"{Colors.OKBLUE}4.{Colors.ENDC} Kimya ve Süreç Mühendisliği (Proses & Hidrolik)")
         print(f"{Colors.OKBLUE}5.{Colors.ENDC} Havacılık ve Uzay Mühendisliği (Aerodinamik & ISA)")
-        print(f"{Colors.OKBLUE}6.{Colors.ENDC} Endüstri Mühendisliği (Yalın & Altı Sigma)")
+        print(f"{Colors.OKBLUE}6.{Colors.ENDC} Endüstri Mühendisliği (Yalın & Mühendislik Ekonomisi)")
         print(f"{Colors.OKBLUE}7.{Colors.ENDC} Kalite Standartları ve Güvenlik (ISO & HACCP)")
         print(f"{Colors.OKBLUE}8.{Colors.ENDC} Çevre ve Sürdürülebilirlik (ESG)")
         print(f"{Colors.OKBLUE}9.{Colors.ENDC} Enerji Sistemleri Mühendisliği (Güneş, Rüzgar, BESS)")
@@ -323,7 +337,9 @@ def main():
         print(f"{Colors.HEADER}=================================================={Colors.ENDC}")
         secim = input("Seçiminiz: ").strip().upper()
 
-        if secim == '1':
+        if secim == 'W':
+            run_script("web_dashboard.py")
+        elif secim == '1':
             menu_software()
         elif secim == '2':
             menu_automation()
