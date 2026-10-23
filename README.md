@@ -231,7 +231,7 @@ GitHub Actions iş akışımız (`.github/workflows/ci.yml`), depoya yapılan he
 
 1. Depoyu klonlayın:
    ```bash
-   git clone https://github.com/arch-yunus/engineering-tools.git
+   git clone https://github.com/bahattinyunus/engineering-tools.git
    ```
 2. Depo klasörüne girin:
    ```bash
